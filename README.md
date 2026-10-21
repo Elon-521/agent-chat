@@ -76,3 +76,11 @@ PORT=云平台分配的端口
 ```
 
 不要把真实 `.env` 或 API Key 提交到 GitHub。`.github/workflows/ci.yml` 会在推送和 Pull Request 时自动执行 `npm ci`、`npm test` 和 `npm run build`。如果使用自定义域名在中国大陆长期公开访问，通常还需要完成 ICP 备案；没有备案时可先使用云平台提供的访问地址验证。
+
+## GitHub Pages 前端发布
+
+仓库已包含 `.github/workflows/pages.yml`。推送到 `main` 后，GitHub Actions 会构建 `dist/` 并发布到 Pages，前端会请求当前的 Vercel `/api/chat` 后端；API Key 仍只保存在后端环境变量中。
+
+首次启用时，在 GitHub 仓库打开 **Settings → Pages**，将 **Build and deployment** 的 **Source** 选择为 **GitHub Actions**。之后在 **Actions** 中等待 `Deploy frontend to GitHub Pages` 完成，访问 `https://elon-521.github.io/agent-chat/`。
+
+GitHub Pages 只负责静态网页，不能单独运行 Node.js 后端。中国大陆访问速度受 GitHub 网络状况影响，页面地址可以使用，但不承诺始终稳定或低延迟；如果需要更稳定的国内访问，应把后端和前端一起迁移到国内云服务。
